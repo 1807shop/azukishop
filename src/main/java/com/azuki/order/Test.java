@@ -1,4 +1,4 @@
-package com.azuki;
+package com.azuki.order;
 
 /**
  * Created with IntelliJ IDEA.
@@ -8,6 +8,6 @@ package com.azuki;
  */
 public class Test {
     public static void main(String[] args) {
-        System.out.println("测试");
+        System.out.println("请删除这个类");
     }
 }
