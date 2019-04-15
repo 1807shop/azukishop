@@ -21,8 +21,7 @@
     <bean id="sessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="dataSource"></property>
         <property name="mapperLocations" value="classpath:mapper/*.xml"></property>
-        <property name="typeAliasesPackage" value="com.azuki.pojo"></property>
-
+        <property name="typeAliasesPackage" value="com.azuki.*.pojo"></property>
         <property name="plugins">
             <array>
                 <bean class="com.github.pagehelper.PageInterceptor">
@@ -39,7 +38,7 @@
     </bean>
     <!-- 4、配置mybatis接口扫描器 -->
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <property name="basePackage" value="com.azuki.mapper"></property>
+        <property name="basePackage" value="com.azuki.*.mapper"></property>
         <property name="sqlSessionFactoryBeanName" value="sessionFactory"></property>
     </bean>
     <!-- 5、配置事务管理器 -->
@@ -47,7 +46,7 @@
         <property name="dataSource" ref="dataSource"></property>
     </bean>
     <!-- 6、注解配置事务扩散机制 -->
-    <tx:annotation-driven transaction-manager="transactionManager" />
+    <tx:annotation-driven transaction-manager="transactionManager"/>
     <!--&lt;!&ndash; 6、xml配置事务扩散机制 &ndash;&gt;-->
     <!--<tx:advice id="txAdvice" transaction-manager="transactionManager">-->
     <!--<tx:attributes >-->
