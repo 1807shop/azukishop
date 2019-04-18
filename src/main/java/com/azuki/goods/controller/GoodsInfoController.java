@@ -50,7 +50,7 @@ public class GoodsInfoController {
     /**
      * 搜索
      * @param goodsInfovo
-     * @return List<goodsInfo>
+     * @return goodsPageInfo
      */
 
     @RequestMapping(value = "/getGoodsInfoBy",method = RequestMethod.POST)
@@ -62,7 +62,11 @@ public class GoodsInfoController {
         return goodsPageInfo;
     }
 
-
+    /**
+     * 根据类别名查询商品信息
+     * @param goodsInfoVo
+     * @return goodsPageInfo
+     */
     @ResponseBody
     @RequestMapping(value = "/getGoodsInfoByTypeName")
     public Object getGoodsInfoByTypeName(@RequestBody(required = false) GoodsInfoVo goodsInfoVo) {
