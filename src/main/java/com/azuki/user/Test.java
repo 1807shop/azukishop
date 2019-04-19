@@ -1,4 +1,4 @@
-package com.azuki.userinfo;
+package com.azuki.user;
 
 /**
  * Created with IntelliJ IDEA.

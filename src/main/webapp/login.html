@@ -1047,31 +1047,42 @@
 						<div class="row">
 							<div class="col-sm-6 new-customer">
 								<div class="well">
-									<h2><i class="fa fa-file-o" aria-hidden="true"></i> New Customer</h2>
-									<p>By creating an account you will be able to shop faster, be up to date on an order's status, and keep track of the orders you have previously made.</p>
+									<h2><i class="fa fa-file-o" aria-hidden="true"></i>未注册？</h2>
+									<p>请先注册</p>
 								</div>
 								<div class="bottom-form">
-									<a href="#" class="btn btn-default pull-right">Continue</a>
+									<a href="register.html" class="btn btn-default pull-right">注册</a>
 								</div>
 							</div>
 							
-							<form action="#" method="post" enctype="multipart/form-data">
+							<form action="#" >
 								<div class="col-sm-6 customer-login">
 									<div class="well">
-										<h2><i class="fa fa-file-text-o" aria-hidden="true"></i> Returning Customer</h2>
-										<p><strong>I am a returning customer</strong></p>
+										<h2><i class="fa fa-file-text-o" aria-hidden="true"></i>已注册用户</h2>
+										<p><strong>登录</strong></p>
 										<div class="form-group">
-											<label class="control-label " for="input-email">E-Mail Address</label>
-											<input type="text" name="email" value="" id="input-email" class="form-control" />
+											<label class="control-label " for="username">用户名</label>
+                                            <br/>
+											<input type="text" name="email" value=""id="username"  style="height:35px;width:400px;border-radius:4px;border:1px solid #DBDBDB;"placeholder="请输入用户名" /><span id="usernameAndPassword"></span>
 										</div>
 										<div class="form-group">
-											<label class="control-label " for="input-password">Password</label>
-											<input type="password" name="password" value="" id="input-password" class="form-control" />
+											<label class="control-label " for="password">密码</label>
+                                            <br/>
+											<input type="password" name="password" value="" id="password" style="height:35px;width:400px;border-radius:4px;border:1px solid #DBDBDB;" placeholder="请输入密码"/>
 										</div>
+                                        <div id="ck">
+                                            请输入验证码&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" id="kaptcha" name="kaptcha" style="width: 60px;"  class="easyui-validatebox"  maxlength="4" data-options="required:true"/>&nbsp;&nbsp;&nbsp;&nbsp;
+                                            &nbsp;<img id="kaptchaImage" src="captchaController/image"  style="margin-bottom: -10px"/><span id="code"></span>
+                                        </div>
+                                        <!--<div class="form-group">-->
+                                            <!--<img src="/ShairHuang/kaptcha.jpg"><br/>-->
+                                            <!--<label class="control-label " for="code">验证码</label>-->
+                                            <!--<input type="text" name="code" value="" id="code" class="form-control" />-->
+                                        <!--</div>-->
 									</div>
 									<div class="bottom-form">
-										<a href="#" class="forgot">Forgotten Password</a>
-										<input type="submit" value="Login" class="btn btn-default pull-right" />
+                                        <input type="checkbox" id="remember">记住密码
+										<input type="button" value="登录" class="btn btn-default pull-right" onclick="login()" />
 									</div>
 								</div>
 							</form>
@@ -1114,24 +1125,13 @@
                         <div class="module newsletter-footer1">
                             <div class="newsletter">
 
-                                <div class="title-block">
-                                    <div class="page-heading font-title">
-                                        Signup for Newsletter
-                                    </div>
-                                    
-                                </div>
+
 
                                 <div class="block_content">
                                     <form method="post" id="signup" name="signup" class="form-group form-inline signup send-mail">
                                         <div class="form-group">
-                                            <div class="input-box">
-                                                <input type="email" placeholder="Your email address..." value="" class="form-control" id="txtemail" name="txtemail" size="55">
-                                            </div>
-                                            <div class="subcribe">
-                                                <button class="btn btn-primary btn-default font-title" type="submit" onclick="return subscribe_newsletter();" name="submit">
-                                            Subscribe
-                                        </button>
-                                            </div>
+
+
                                         </div>
                                     </form>
 
@@ -1331,8 +1331,93 @@
 	<script type="text/javascript" src="js/themejs/so_megamenu.js"></script>
 	<script type="text/javascript" src="js/themejs/addtocart.js"></script>
 	<script type="text/javascript" src="js/themejs/application.js"></script>
-	
-	
-	
+	<script type="text/javascript">
+
+
+        //验证码生成
+        $('#kaptchaImage').click(function () {//生成验证码
+            $(this).hide().attr('src','captchaController/image?' + Math.floor(Math.random()*100) ).fadeIn();
+            event.cancelBubble=true;
+        });
+
+
+
+        //登录验证
+        function login(){
+            $.ajax({
+                type:"POST",
+                url:"checkLogin",
+                contentType:"application/json;charset:utf-8",
+                data:JSON.stringify({
+                    "userName":$("#username").val().trim(),
+                    "password":$("#password").val().trim(),
+                    "code":$("#kaptcha").val().trim(),
+                    "rememberStatus":rememberStatus
+            }),
+                dataType:"json",
+                success:function (responseText) {
+                    console.log(responseText)
+                    if(responseText==0){
+                        $("#code").html("验证码错误！");
+                        $("#code").css("color","red");
+
+                        $('#kaptchaImage').click();
+                    }else if(responseText==2){
+                        $("#code").html("");
+                        $("#usernameAndPassword").html("用户名或密码错误！");
+                        $("#usernameAndPassword").css("color","red");
+                        $("#username").val("");
+                        $("#password").val("");
+                        $("#kaptcha").val("");
+                        $('#kaptchaImage').click();
+                    }else {
+                        alert("登录成功！");
+                        window.location.href="index.html";
+                    }
+
+                },
+                error:function (message) {
+                    console.log(message)
+                }
+            });
+        }
+
+
+        //记住密码的状态值
+        var rememberStatus;
+        $("#remember").click(function () {
+            if ($(this).prop("checked")) {
+                rememberStatus = 1;
+            } else {
+                rememberStatus = 0;
+            }
+        });
+
+        //记住密码验证
+            var cookie = $.cookie("ckUserId");
+            if(cookie!=null){
+                $.ajax({
+                    type:"POST",
+                    url:"selectUsernameAndPasswordByUserId",
+                    contentType:"application/json;charset:utf-8",
+                    data:JSON.stringify({
+                        "userId":parseInt(cookie)
+                    }),
+                    dataType:"json",
+                    success:function (responseText) {
+                        console.log(responseText);
+                        if(responseText!=null){
+                            $("#username").val(responseText.userName);
+                            $("#password").val(responseText.password);
+                            $("#remember").attr("checked",true);
+                        }
+                    },
+                    error:function (message) {
+                        console.log(message)
+                    }
+                });
+            }
+
+    </script>
 </body>
 </html>
