@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.azuki.user.mapper.UserInfoMapper">
+    <!--根据用户名和密码查询用户-->
+    <select id="selectUserInfoByUserNameAndPassword" resultType="com.azuki.user.pojo.UserInfo" parameterType="com.azuki.user.vo.UserInfoVo">
+      select * from userinfo where userName=#{userName} and password=#{password} and status=1
+    </select>
+    <!--插入新用户-->
+    <insert id="insertIntoUserInfo" parameterType="com.azuki.user.vo.UserInfoVo">
+        insert into userinfo (userName,password,email,name,address,city,province,phone,qqNum,postCode) values
+         (#{userName},#{password},#{email},#{name},#{address},#{city},#{province},#{phone},#{qqNum},#{postCode})
+    </insert>
+    <!--更新用户信息-->
+    <update id="updateUserInfo" parameterType="com.azuki.user.vo.UserInfoVo">
+        update userinfo set userName=#{userName},password=#{password},email=#{email},name=#{name},address=#{address},city=#{city},province=#{province},phone=#{phone},qqNum=#{qqNum},postCode=#{postCode} where userId=#{userId}
+    </update>
+    <!--根据userId查询用户名和密码-->
+    <select id="selectUsernameAndPasswordByUserId" resultType="com.azuki.user.pojo.UserInfo" parameterType="int">
+      select * from userinfo where userId=#{userId} and status=1
+    </select>
+    <!--根据用户名查询用户（判断用户名唯一） -->
+    <select id="selectUserInfoByUserName" resultType="int" parameterType="com.azuki.user.vo.UserInfoVo">
+      select count(*) from userinfo where userName=#{userName} and status=1
+    </select>
+
+</mapper>
