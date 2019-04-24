@@ -564,20 +564,19 @@
                 });
 
                 //结算已勾选的商品
+                var list;//勾选商品集合
                 $("#checkout").click(function () {
-                    var list = [];//勾选商品集合
+                    list = [];
                     $(response).each(function (index, item) {
                         if (item.check == true) {
                             list.push(item);
                         }
                     });
-
                     // 商品集合转json
                     var goodsList = JSON.stringify(list);
-
                     $.ajax({
                         type: 'POST',
-                        url: 'checkOut',
+                            url: 'checkOut',
                         contentType: "application/json; charset=utf-8",
                         data: goodsList,
                         async: false,
@@ -609,6 +608,7 @@
                     // 5.使用Ajax进行数据交换
                     $(obj.idArray).each(function (index, data) {
                         $.ajax({
+                            async: false,
                             type: 'POST',
                             url: 'removeOutShopCart?cartDetailId=' + data,
                             contentType: "application/json; charset=utf-8",
@@ -660,19 +660,20 @@
     //加入收藏夹--通过goodsId
     function addToWish(data) {
         $.ajax({
+            async: false,
             type: 'POST',
             url: '/user/addwishlist?goodsId=' + data,
             contentType: "application/json; charset=utf-8",
             success: function (response) {
                 alert("成功加入愿望单：" + response + "商品");
-                location.reload();
+                initCart();
+                //最后要移出购物车
+                moveOutCart(data);
             },
             error: function (response) {
                 console.log(response)
             }
         });
-        //最后要移出购物车
-        moveOutCart(data);
     }
 </script>
 
