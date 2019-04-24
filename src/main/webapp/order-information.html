@@ -47,7 +47,7 @@
 
      <!-- Google web fonts
     ============================================ -->
-    <link href='https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700' rel='stylesheet' type='text/css'>     
+<!--    <link href='https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700' rel='stylesheet' type='text/css'>     -->
     <style type="text/css">
          body{font-family:'Poppins', sans-serif;}
     </style>
@@ -76,50 +76,44 @@
 	<div class="main-container container">
 		<ul class="breadcrumb">
 			<li><a href="#"><i class="fa fa-home"></i></a></li>
-			<li><a href="#">Order Infomation</a></li>
+			<li><a href="#">订单信息</a></li>
 		</ul>
 		
 		<div class="row">
 			<!--Middle Part Start-->
 			<div id="content" class="col-sm-9">
-				<h2 class="title">Order Information</h2>
+				<h2 class="title">订单信息</h2>
 
 				<table class="table table-bordered table-hover">
 					<thead>
 						<tr>
-							<td colspan="2" class="text-left">Order Details</td>
+							<td colspan="2" class="text-left">订单详细信息</td>
 						</tr>
 					</thead>
 					<tbody>
 						<tr>
-							<td style="width: 50%;" class="text-left"> <b>Order ID:</b> #214521
+							<td style="width: 50%;" class="text-left"> <b>订单编号:</b> <a id="orderInfoId"></a>
 								<br>
-								<b>Date Added:</b> 20/06/2016</td>
-							<td style="width: 50%;" class="text-left"> <b>Payment Method:</b> Cash On Delivery
+								<b>创建时间:</b><a id="createDate"></a></td>
+							<td style="width: 50%;" class="text-left"> <b>支付方式:</b><a id="payType"></a>
 								<br>
-								<b>Shipping Method:</b> Flat Shipping Rate </td>
+
 						</tr>
 					</tbody>
 				</table>
 				<table class="table table-bordered table-hover">
 					<thead>
 						<tr>
-							<td style="width: 50%; vertical-align: top;" class="text-left">Payment Address</td>
-							<td style="width: 50%; vertical-align: top;" class="text-left">Shipping Address</td>
+							<td style="width: 50%; vertical-align: top;" class="text-left">收货信息</td>
 						</tr>
 					</thead>
 					<tbody>
 						<tr>
-							<td class="text-left">Jhone Cary
-								<br>Central Square
-								<br>22 Hoi Wing Road
-								<br>New Delhi
-								<br>India</td>
-							<td class="text-left">Jhone Cary
-								<br>Central Square
-								<br>22 Hoi Wing Road
-								<br>New Delhi
-								<br>India</td>
+							<td class="text-left">
+                                <div style="margin: 10px"><strong>收货人姓名：</strong><a id="consignee"></a></div>
+                                <div style="margin: 10px"><strong>联系电话：</strong><a id="phone"></a></div>
+                                <div style="margin: 10px"><strong>收货地址：</strong><a id="receiverAdd"></a></div>
+
 						</tr>
 					</tbody>
 				</table>
@@ -127,91 +121,33 @@
 					<table class="table table-bordered table-hover">
 						<thead>
 							<tr>
-								<td class="text-left">Product Name</td>
-								<td class="text-left">Model</td>
-								<td class="text-right">Quantity</td>
-								<td class="text-right">Price</td>
-								<td class="text-right">Total</td>
-								<td style="width: 20px;"></td>
+								<td class="text-left">商品名称</td>
+								<td class="text-left">图片</td>
+								<td class="text-right">数量</td>
+								<td class="text-right">单价</td>
+								<td class="text-right">总额</td>
+                                <td style="width: 20px;"></td>
+
 							</tr>
 						</thead>
-						<tbody>
-							<tr>
-								<td class="text-left">iPhone5 </td>
-								<td class="text-left">product 11</td>
-								<td class="text-right">1</td>
-								<td class="text-right">$123.20</td>
-								<td class="text-right">$123.20</td>
-								<td style="white-space: nowrap;" class="text-right"> <a class="btn btn-primary" title="" data-toggle="tooltip" href="#" data-original-title="Reorder"><i class="fa fa-shopping-cart"></i></a>
-									<a class="btn btn-danger" title="" data-toggle="tooltip" href="return.html" data-original-title="Return"><i class="fa fa-reply"></i></a>
-								</td>
-							</tr>
+						<tbody id="orderGoodsDetailInfo">
+
 
 						</tbody>
 						<tfoot>
 							<tr>
 								<td colspan="3"></td>
-								<td class="text-right"><b>Sub-Total</b>
+								<td class="text-right"><b>总金额</b>
 								</td>
-								<td class="text-right">$101.00</td>
-								<td></td>
-							</tr>
-							<tr>
-								<td colspan="3"></td>
-								<td class="text-right"><b>Flat Shipping Rate</b>
-								</td>
-								<td class="text-right">$5.00</td>
-								<td></td>
-							</tr>
-							<tr>
-								<td colspan="3"></td>
-								<td class="text-right"><b>Eco Tax (-2.00)</b>
-								</td>
-								<td class="text-right">$6.00</td>
-								<td></td>
-							</tr>
-							<tr>
-								<td colspan="3"></td>
-								<td class="text-right"><b>VAT (20%)</b>
-								</td>
-								<td class="text-right">$21.20</td>
-								<td></td>
-							</tr>
-							<tr>
-								<td colspan="3"></td>
-								<td class="text-right"><b>Total</b>
-								</td>
-								<td class="text-right">$133.20</td>
+								<td class="text-right" id="totalPrice"></td>
 								<td></td>
 							</tr>
 						</tfoot>
 					</table>
 				</div>
-				<h3>Order History</h3>
-				<table class="table table-bordered table-hover">
-					<thead>
-						<tr>
-							<td class="text-left">Date Added</td>
-							<td class="text-left">Status</td>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td class="text-left">20/06/2016</td>
-							<td class="text-left">Processing</td>
-						</tr>
-						<tr>
-							<td class="text-left">21/06/2016</td>
-							<td class="text-left">Shipped</td>
-						</tr>
-						<tr>
-							<td class="text-left">24/06/2016</td>
-							<td class="text-left">Complete</td>
-						</tr>
-					</tbody>
-				</table>
+
 				<div class="buttons clearfix">
-					<div class="pull-right"><a class="btn btn-primary" href="#">Continue</a>
+					<div class="pull-right"><a class="btn btn-primary" href="/order-history.html">查看更多订单</a>
 					</div>
 				</div>
 
@@ -505,6 +441,7 @@
 	<script type="text/javascript" src="js/themejs/so_megamenu.js"></script>
 	<script type="text/javascript" src="js/themejs/addtocart.js"></script>
 	<script type="text/javascript" src="js/themejs/application.js"></script>
+    <script type="text/javascript" src="js/order/order-information.js"></script>
 	
 	
 	
