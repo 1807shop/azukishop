@@ -6,7 +6,9 @@ package com.azuki.shopcart.pojo;
  * Date: 2019/4/16 12:08
  * Description: No Description
  */
+
 public class ShopCart {
+
     private int cartDetailId;
     private int userId;
     private int goodsId;

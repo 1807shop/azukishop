@@ -1,12 +1,12 @@
 package com.azuki.shopcart.vo;
 
-
 /**
  * Created with IntelliJ IDEA.
  * Author: Jason
  * Date: 2019/4/17 15:20
  * Description: No Description
  */
+
 public class ShopCartVo {
 
     int cartDetailId;

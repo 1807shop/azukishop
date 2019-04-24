@@ -16,13 +16,11 @@ import java.util.List;
  * Date: 2019/4/16 12:32
  * Description: No Description
  */
+
 @Controller
 public class ShopCartController {
     @Autowired
     ShopCartService shopcartService;
-
-//    后台往前端传值中文乱码：在@RequestMapping后面加入参数produces="text/html;charset=utf-8"
-
     /**
      * 根据用户id查询用户购物车
      *
