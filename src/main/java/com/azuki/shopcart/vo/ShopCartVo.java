@@ -7,6 +7,7 @@ package com.azuki.shopcart.vo;
  * Date: 2019/4/17 15:20
  * Description: No Description
  */
+
 public class ShopCartVo {
 
     int cartDetailId;
