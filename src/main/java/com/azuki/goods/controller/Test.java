@@ -1,10 +1,19 @@
 package com.azuki.goods.controller;
 
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+
 /**
- * Created with IntelliJ IDEA.
- * Author: Jason
- * Date: 2019/4/1517:16
- * Description: No Description
+ *
+ *
  */
+
+@Controller
 public class Test {
+
+
+
+
+
 }
