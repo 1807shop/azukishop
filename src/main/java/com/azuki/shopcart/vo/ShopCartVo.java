@@ -1,6 +1,5 @@
 package com.azuki.shopcart.vo;
 
-
 /**
  * Created with IntelliJ IDEA.
  * Author: Jason
